@@ -3,8 +3,7 @@ layout: default
 ---
 
 
-# TTAGGC
-I can't promise you anything
+Biology, code, life
 
 [Animal thermal strategies](blog/animal_thermal_strategies)\
 [fasta complaints](blog/fasta_complaints)\
