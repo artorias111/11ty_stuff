@@ -1,0 +1,7 @@
+# Dependencies installed by npm
+node_modules
+
+_site
+
+# build artefacts
+public

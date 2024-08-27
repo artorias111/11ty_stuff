@@ -1,0 +1,54 @@
+/* Restrict the width of the content */
+.container {
+  max-width: 800px; /* Adjust this value to change the width */
+  margin: 0 auto; /* Center the content horizontally */
+  padding: 0 20px; /* Add some space on the sides */
+}
+/* Apply a black background and white text to the entire page */
+body {
+  background-color: black;
+  color: white;
+  text-shadow: 1px 1px 2px black; /* Adds a subtle shadow to text */
+
+}
+
+/* Optional: Style links */
+a {
+  color: #1e90ff; /* Light blue color for links */
+}
+
+/* Optional: Style headings */
+h1, h2, h3, h4, h5, h6 {
+  color: white; /* Ensure headings are also white */
+}
+
+/* Optional: Style code blocks */
+pre, code {
+  background-color: #333; /* Darker background for code blocks */
+  color: #f8f8f2; /* Light color for code text */
+  padding: 10px;
+  border-radius: 5px;
+}
+a:hover {
+  color: #ff6347; /* Tomato color for hover effect */
+}
+
+button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #555;
+}
+img {
+  display: block; /* Makes the image a block-level element */
+  margin-left: auto; /* Centers the image horizontally */
+  margin-right: auto; /* Centers the image horizontally */
+  max-width: 100%; /* Ensures the image scales down if necessary */
+  height: auto; /* Maintains aspect ratio */
+}
