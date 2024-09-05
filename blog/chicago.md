@@ -2,6 +2,7 @@
 layout : default
 ---
 
-# Always love a trip to Chicago
+# Always love a Chicago trip
 I walk by this place all the time. 
-<img src="../images/Chicago_enc.jpg" alt="image" />
+
+<img src="../../images/Chicago_enc.jpg" alt="image" width=50% />
