@@ -3,11 +3,10 @@ layout: default
 ---
 
 
-Biology, code, life\
-This is a blog of journaling, opinions, and sometimes the occassional tutorial.\
-It's not my personal wiki, and the posts are a collection of random pages loosely put together. 
+Biology, code, and everything in between\
+This is a loose collection of my scattered opinions, and sometimes the occassional tutorial.\
 
-[Chicago](blog/chicago)\
-[Animal thermal strategies](blog/animal_thermal_strategies)\
+
 [fasta complaints](blog/fasta_complaints)\
-[Centromeres and why dna sequence alone can't answer life's questions](blog/centromere)
+[Centromeres and why dna sequence alone can't answer life's questions](blog/centromere)\
+[A statistics primer for biologists](blog/stats_primer)
