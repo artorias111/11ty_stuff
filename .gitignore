@@ -5,3 +5,5 @@ _site
 
 # build artefacts
 public
+
+.DS_Store
