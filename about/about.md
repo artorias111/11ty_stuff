@@ -3,7 +3,13 @@ layout: default
 ---
 
 ## What's TTAGGC?
-I came up with this name because ageing something that's been bothering me a lot for the past couple of years. I'm not trying to say I'm "old" or anything of that sort (I am, but that's another can of worms that I'd rather not talk about here). Ageing is something (almost) every living being has to go through, and it's interlinked science, relegion, and society as a whole since the beginning of civilization. Our DNA plays a big part in how, why and the rate at which we age. Our DNA's ends are composed of the same set of nucleotides (or chemicals) that's repeated thousands of times. \
-TTAGGC is the ends of the chromosomes (the DNA) of worms. Why worms? I don't know, why not? 
+TTAGC is the most common telomere repeat found in the nematode *Caenorhabditis elegans*. 
+
+## What does that mean?
+TTAGGC is the ends of the chromosomes (the DNA) of a particular kind of worm. 
+
+## Why worms?
+*C. elegans* is a commonly used model organism in biological labaratories used to study the biology of (worms?) not just worms, but all of life. *C. elegans* scientists have earned 3 nobel prizes (as of 2025), and one among the many exciting fields studied via *C. elegans* as a model is ageing. 
+
 
 <img src="../images/ver_preview_e618.png" alt="image" width="10%"/>

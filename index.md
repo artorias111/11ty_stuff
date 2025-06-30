@@ -3,10 +3,7 @@ layout: default
 ---
 
 
-Biology, code, and everything in between\
-This is a loose collection of my scattered opinions, and sometimes the occassional tutorial.\
+I write about Biology, and code. \
+A flowing collection of my opinions. 
 
-
-[fasta complaints](blog/fasta_complaints)\
-[Centromeres and why dna sequence alone can't answer life's questions](blog/centromere)\
-[A statistics primer for biologists](blog/stats_primer)
+[A peek into worm research outputs](blog/list_of_things_worms_have_given_us.md)
