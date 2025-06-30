@@ -3,7 +3,7 @@ layout: default
 ---
 
 ## What's TTAGGC?
-TTAGC is the most common telomere repeat found in the nematode *Caenorhabditis elegans*. 
+TTAGGC is the most common telomere repeat found in the nematode *Caenorhabditis elegans*. 
 
 ## What does that mean?
 TTAGGC is the ends of the chromosomes (the DNA) of a particular kind of worm. 
