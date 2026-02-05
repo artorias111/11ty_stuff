@@ -2,9 +2,9 @@
 layout: default
 ---
 
-# Some discoveries in *C. elegans* research
+# Biological discoveries via *C. elegans* research
 
-#### Sourced from the WormBook
+#### Sourced from the [https://www.ncbi.nlm.nih.gov/books/NBK19662/](WormBook)
 
 Identification of mutations that affect animal behavior \
 First description of mutations that affect thermotaxis and mechanotransduction \
