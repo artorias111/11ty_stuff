@@ -2,8 +2,8 @@
 layout: default
 ---
 
-## What's the blog about?
-It's a personal blog where I post anything and everything I feel like writing about in my spare time. I'm a graduate student, my research is on genome evolution of polar fishes. These genomes have adapted quite well to the cold, and I find it fascinating to see how they evolve and managed to survive in extreme environments. I also really like coding and the open source culture. I love talking about my tech stack. I use [https://neovim.io/](Neovim) with a [https://catppuccin.com/](catppuccin) theme. I also post about my other interests, such as the occasional running entry, the rare blog on learning to produce electronic music (or playing the guitar), and the occassional recipe, such as that of a sugarfree blueberry muffin where applesauce replaced both the sugar and the butter. 
+## About the site
+This is a personal list where I post anything and everything I feel like writing about. I'm a graduate student, my research is on genome evolution, hence the name of the blog is what it is. I also really like the culture of open source, and the Unix philosophy. I'm just a fan of them, I'm not willing to die on that hill, [so I'm okay reading about people complaining about either of these](https://newcome.wordpress.com/2012/03/06/functional-programming-and-the-death-of-the-unix-way/). 
 
 ## What's TTAGGC?
 TTAGGC is the most common telomere repeat found in the nematode *Caenorhabditis elegans*.  Telomeres are (usually) the ends of the chromosomes (the DNA). 
