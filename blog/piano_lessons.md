@@ -7,6 +7,9 @@ Thank you Shruti.
 
 [Piano lessons](https://www.youtube.com/watch?v=AfXPOGbmSmY)
 
+## 2026-02-11
+- Update: I've decided to focus on [guitar lessons](../guitar_lessons) for now. 
+
 ## 2026-02-09 : Week 2
 - Grand Staff
 - Left hand: thumb on middle C
