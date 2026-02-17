@@ -4,6 +4,24 @@ layout: default
 
 # Guitar lessons
 
+## 2026-02-16
+- Single note melodies
+  - EADGBE
+- Reading tabs
+- Simple melodies
+- A riff is a guitar part that you can play over and over in a song
+
+
+- Here's some melodies to practice: (and get used to reading a guitar tab)
+
+<img src="../../images/melody1.png" alt="image" width="50%"/>
+<img src="../../images/melody2.png" alt="image" width="50%"/>
+<img src="../../images/melody3.png" alt="image" width="50%"/>
+<img src="../../images/melody4.png" alt="image" width="50%"/>
+<img src="../../images/melody5.png" alt="image" width="50%"/>
+<img src="../../images/melody6.png" alt="image" width="50%"/>
+
+
 ## 2026-02-10
 - Minor chords day 2
 - Chord progression
