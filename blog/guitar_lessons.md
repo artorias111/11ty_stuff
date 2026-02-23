@@ -4,6 +4,9 @@ layout: default
 
 # Guitar lessons
 
+## 2026-02-23
+- Power chords
+
 ## 2026-02-16
 - Single note melodies
   - EADGBE
