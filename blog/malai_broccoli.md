@@ -2,7 +2,7 @@
 layout: default
 ---
 
-# My new go-to snack
+# Another go-to snack
 I purchased a big bag of broccoli, and then I didn't know what to do with it. So here's a marinated Indian style broccoli recipe inspired by [Shweta](https://www.youtube.com/@shwetasgenielife/) (I couldn't find a website so I added her Youtube channel). The prep time is almost instantaneous, and it's super tasty. And the best part, you get quite a bit of broccoli into your system. 
 
 Here's how I made them:
