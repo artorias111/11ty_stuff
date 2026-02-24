@@ -6,6 +6,13 @@ layout: default
 
 ## 2026-02-23
 - Power chords
+  - 2 note chords
+- E5 and A5 power chords
+- These chords get their name from the lowest note (aka the 'root')
+- F5 power chord
+- A5, C5, G5 and F#5
+- 5th string power chords
+- Simple power chord progression
 
 ## 2026-02-16
 - Single note melodies
