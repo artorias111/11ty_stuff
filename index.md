@@ -5,6 +5,10 @@ layout: default
 # My Home Page
 TTAGGG
 
+
+<img src="../../images/lymphocytes_2x.png" alt="xkcd 2749: Lymphocytes" width="45%"/>
+
+
 [Malai Brocolli](blog/malai_broccoli)
 
 [Guitar](blog/guitar_lessons)
