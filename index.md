@@ -7,6 +7,7 @@ TTAGGG
 
 
 <img src="../../images/lymphocytes_2x.png" alt="xkcd 2749: Lymphocytes" width="45%"/>
+It's not just for laughs, this is a reference I keep coming back to from time to time. Very accurate.
 
 
 [Malai Brocolli](blog/malai_broccoli)
