@@ -4,6 +4,19 @@ layout: default
 
 # Guitar lessons
 
+## 2026-03-16
+- Big break
+- E and A review
+- Major Barre chords 
+- 6th string barre chord
+- F barre chord
+- F# chord
+- G and F switching: Practice barre chords
+- 5th string barre chord
+- B flat chord (what's the notation for 'flat'?)
+- Strumming pattern: 
+  - partial strums
+
 ## 2026-02-23
 - Power chords
   - 2 note chords
