@@ -37,12 +37,12 @@ title: Guitar lessons
 
 - Here's some melodies to practice: (and get used to reading a guitar tab)
 
-<img src="../../images/melody1.png" alt="image" width="50%"/>
-<img src="../../images/melody2.png" alt="image" width="50%"/>
-<img src="../../images/melody3.png" alt="image" width="50%"/>
-<img src="../../images/melody4.png" alt="image" width="50%"/>
-<img src="../../images/melody5.png" alt="image" width="50%"/>
-<img src="../../images/melody6.png" alt="image" width="50%"/>
+<img src="/images/melody1.png" alt="image" width="50%"/>
+<img src="/images/melody2.png" alt="image" width="50%"/>
+<img src="/images/melody3.png" alt="image" width="50%"/>
+<img src="/images/melody4.png" alt="image" width="50%"/>
+<img src="/images/melody5.png" alt="image" width="50%"/>
+<img src="/images/melody6.png" alt="image" width="50%"/>
 
 
 ## 2026-02-10

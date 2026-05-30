@@ -31,4 +31,4 @@ Steps:
 5. Enjoy with your favorite hot sauce/dipping sauce. I top it with spicy chili crisp and it's great. 
 
 
-<img src="../../images/broccoli-air-fried.jpeg" alt="image" width="50%"/>
+<img src="/images/broccoli-air-fried.jpeg" alt="image" width="50%"/>

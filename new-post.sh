@@ -23,6 +23,8 @@ title: $TITLE
 
 # $TITLE
 
+<!-- To add an image: ./add-image.sh path/to/photo.jpg -->
+
 EOF
 
 echo "Created $FILE"

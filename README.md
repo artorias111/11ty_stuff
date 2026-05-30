@@ -28,11 +28,20 @@ No need to add `layout`, link it from the homepage, or touch any other file.
 
 ## Adding images
 
-1. Drop the image in `images/`
-2. Reference it in your post with an HTML img tag (not markdown syntax):
+```bash
+./add-image.sh ~/Downloads/photo.jpg
+```
+
+This copies the image to `images/` and prints the snippet to paste into your post:
 
 ```html
-<img src="../../images/your-image.jpg" alt="description" width="50%"/>
+<img src="/images/photo.jpg" alt="" width="50%"/>
+```
+
+Optional second argument sets the width (default `50%`):
+
+```bash
+./add-image.sh ~/Downloads/photo.jpg 30%
 ```
 
 ## Running locally
