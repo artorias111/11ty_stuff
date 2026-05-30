@@ -1,5 +1,5 @@
 ---
-layout: default
+title: Biological discoveries via C. elegans research
 ---
 
 # Biological discoveries via *C. elegans* research

@@ -1,5 +1,5 @@
 ---
-layout: default
+title: My new go-to snack
 ---
 
 # My new go-to snack
@@ -36,5 +36,5 @@ Steps:
 
 
 
-<img src="../../images/berry_crumble.jpg" alt="image" width="50%"/>
+<img src="/images/berry_crumble.jpg" alt="image" width="50%"/>
 

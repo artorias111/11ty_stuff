@@ -1,5 +1,5 @@
 ---
-layout: default
+title: Piano lessons
 ---
 
 # Piano lessons
