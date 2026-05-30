@@ -1,5 +1,5 @@
 ---
-layout: default
+title: Guitar lessons
 ---
 
 # Guitar lessons

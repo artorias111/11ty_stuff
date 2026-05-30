@@ -1,5 +1,5 @@
 ---
-layout: default
+title: Another go-to snack
 ---
 
 # Another go-to snack

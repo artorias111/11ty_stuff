@@ -1,5 +1,5 @@
 ---
-layout: default
+title: PhD fuel
 ---
 
 # PhD fuel

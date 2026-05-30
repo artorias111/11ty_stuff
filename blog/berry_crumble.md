@@ -1,5 +1,5 @@
 ---
-layout: default
+title: My new go-to snack
 ---
 
 # My new go-to snack
