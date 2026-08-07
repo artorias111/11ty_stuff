@@ -21,7 +21,7 @@ eleventyExcludeFromCollections: true
 <ul class="entries">
 {%- for entry in collections.note | reverse %}
   <li>
-    <a href="{{ entry.url }}">{{ entry.data.title or entry.fileSlug }}</a>
+    <a href="{{ entry.url }}">{{ (entry.data.title or entry.fileSlug) | emphasis | safe }}</a>
     <span class="label">{{ entry.data.section }}</span>
     <time datetime="{{ entry.date | isoDate }}">{{ entry.date | isoDate }}</time>
   </li>

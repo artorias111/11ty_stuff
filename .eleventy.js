@@ -16,6 +16,24 @@ module.exports = function(eleventyConfig) {
     return new Date(d).toISOString().slice(0, 10);
   });
 
+  // Frontmatter `title:` is plain text — markdown never runs on it — so
+  // `title: The *C. elegans* genome` would show its asterisks in every
+  // listing. These two filters fix that without turning titles into HTML:
+  //   | emphasis  ->  *x* becomes <em>x</em>   (for anything on-screen)
+  //   | plain     ->  *x* becomes x            (for <title>, which can't
+  //                                             contain markup)
+  // Only *asterisks* are supported, not _underscores_ — underscores turn up
+  // in gene and file names too often to treat as formatting.
+  const escapeHtml = (s) => String(s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+  eleventyConfig.addFilter("emphasis", (s) =>
+    escapeHtml(s).replace(/\*([^*]+)\*/g, "<em>$1</em>"));
+
+  eleventyConfig.addFilter("plain", (s) =>
+    String(s).replace(/\*([^*]+)\*/g, "$1"));
+
   // Everything dated, newest first — this is what the homepage shows. Each
   // entry carries a `section` label from its directory data file, so the list
   // can say where an item came from without inspecting its URL.

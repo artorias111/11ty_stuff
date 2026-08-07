@@ -28,16 +28,17 @@ The lesson: **this site is meant to be small.** Do not add structure it did not 
 ## Design
 
 The look is modelled on [void.cc](https://void.cc/) — monospace throughout, true black,
-a single ~640px left-aligned column, links as yellow-outlined chips that invert on hover.
-Shriram picked this deliberately; amoled `#000` is not negotiable, and there is no theme
-toggle by design.
+a single left-aligned column, links as outlined chips that invert on hover. Shriram picked
+this deliberately; amoled `#000` is not negotiable, and there is no theme toggle by design.
 
-All tunable values are custom properties at the top of `css/styles.css`. `--accent` is a
-slightly softened yellow — set it to `yellow` for the literal void.cc treatment.
+All tunable values are custom properties at the top of `css/styles.css`. `--accent` is
+`#EC5B38` (vermilion), chosen by Shriram — links, nav chips, the copy button and parts of
+the syntax theme all key off that one value.
 
 ## Structure
 
-Five nav sections, defined in `_data/nav.json`: Home, About, Notes, Posts, Projects.
+Five nav sections, defined in `_data/nav.json`, in this order: Home, Posts, Projects,
+About, Notes.
 "Notes" was chosen over "Knowledge" — the bucket is inventory and habit, not expertise.
 
 ```
@@ -121,7 +122,19 @@ Markdown `![](...)` can't carry a class, so `sharp`/`torn` need raw `<img>` — 
 
 ## Conventions
 
-- No dates on posts; ordering is `collections.post | reverse`
 - Posts repeat their title as an `<h1>` in the body — the layout does not render it, so this
   is not duplication
 - Don't commit unless asked
+
+## Authoring
+
+`README.md` is the user-facing guide — how to add, edit, remove posts and sections.
+Keep it in sync when any of that changes.
+
+- `./paste-image.sh [name]` takes the clipboard image (via `osascript` and
+  `«class PNGf»` — there is no `pngpaste` and the system Python has no PyObjC on this
+  machine), writes it to `images/`, and leaves the markdown snippet on the clipboard.
+- Frontmatter `title:` supports `*asterisk italics*` through the `emphasis` filter, for
+  species names. `<title>` uses the `plain` filter instead, since it can't hold markup.
+  Underscores are deliberately NOT treated as emphasis — gene and file names use them.
+  `emphasis` escapes HTML before substituting, so titles can't inject markup.

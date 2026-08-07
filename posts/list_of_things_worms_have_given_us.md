@@ -1,6 +1,6 @@
 ---
 date: 2025-06-30
-title: Biological discoveries via C. elegans research
+title: Biological discoveries via *C. elegans* research
 ---
 
 # Biological discoveries via *C. elegans* research
