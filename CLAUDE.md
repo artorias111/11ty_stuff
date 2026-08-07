@@ -98,6 +98,27 @@ Three properties that must survive any future edit:
 
 Fence with a language for highlighting: ```` ```python ````, ```` ```bash ````, ```` ```r ````.
 
+## Images
+
+There will be a lot of them, and they should not read as hard rectangles.
+
+- **Default:** every `main img` gets *irregular* border-radii — no two corners of an image
+  match, and `:nth-of-type` cycles three corner sets so a page of images doesn't look
+  stamped out. Chosen over a uniform radius (reads as a CSS default) and over a torn edge
+  (unsafe as a default — see below). It only ever touches the corners.
+- **`class="sharp"`** — square corners. For plots, screenshots, anything where the edge
+  carries information.
+- **`class="torn"`** — torn-paper edge via `images/edge-mask.svg` as a CSS mask. Photos
+  only. It nibbles a few pixels off *all four* sides, which clipped the captions on the
+  xkcd test image; that is exactly why it is opt-in rather than the default.
+
+`images/edge-mask.svg` is generated, not drawn: a rectangle path whose perimeter points are
+jittered along their normals, with a fixed random seed so it is stable across builds.
+Regenerate it with a smaller `JIT` if the tear ever eats too much.
+
+Markdown `![](...)` can't carry a class, so `sharp`/`torn` need raw `<img>` — which is what
+`./add-image.sh` already emits, and it prints both options as a reminder.
+
 ## Conventions
 
 - No dates on posts; ordering is `collections.post | reverse`

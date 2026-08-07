@@ -188,12 +188,37 @@ li { margin: .2rem 0; }
   font-size: .8rem;
 }
 
-/* ---- images in content ---------------------------------------------- */
+/* ---- images in content ----------------------------------------------
+   Images get hand-cut corners by default: irregular radii, so no two
+   corners of one image match and no two images match each other. This is
+   the safe default — it only ever touches the corners.
+
+   Opt out with class="sharp" (plots, screenshots, anything where the edge
+   carries information). Opt in to a torn-paper edge with class="torn",
+   which nibbles a few px off ALL FOUR sides — good for photos, bad for
+   figures with captions running to the border.
+   --------------------------------------------------------------------- */
 main img {
   display: block;
   margin: 1.75rem auto;
   max-width: 100%;
   height: auto;
+  border-radius: 14px 22px 12px 26px / 20px 12px 24px 14px;
+}
+/* three corner sets, cycled, so a page of images doesn't look stamped out */
+main img:nth-of-type(3n + 2) { border-radius: 24px 12px 20px 14px / 12px 22px 14px 24px; }
+main img:nth-of-type(3n + 3) { border-radius: 10px 26px 16px 20px / 22px 14px 26px 10px; }
+
+main img.sharp { border-radius: 0; }
+
+main img.torn {
+  border-radius: 0;
+  -webkit-mask-image: url(/images/edge-mask.svg);
+          mask-image: url(/images/edge-mask.svg);
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
 }
 
 /* ---- code ----------------------------------------------------------- */
