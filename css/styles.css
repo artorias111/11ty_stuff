@@ -6,7 +6,7 @@
   --bg:      #000;          /* amoled black, deliberately not #111 */
   --text:    #dddddd;
   --muted:   #808080;
-  --accent:  #ffe14d;       /* set this to `yellow` for the full void.cc look */
+  --accent:  #EC5B38;       /* vermilion; everything accented keys off this one value */
   --line:    #333333;
   --code-bg: #0d0d0d;
 
@@ -59,11 +59,12 @@ blockquote {
 }
 
 /* ---- masthead ------------------------------------------------------- */
-/* Wordmark and nav on the left, bio on the right. Stacks below 700px. */
+/* Wordmark and bio share the top row, vertically centred against each other;
+   the nav is a centred full-width row beneath. Stacks on narrow screens. */
 .masthead {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;   /* wordmark sits centred against the bio */
   gap: 1.5rem 2.25rem;
   margin-bottom: 2.75rem;
   padding-bottom: 1.5rem;
@@ -75,7 +76,7 @@ blockquote {
   width: 200px;         /* the wordmark is 469px wide; this reins it in */
   max-width: 100%;
   height: auto;
-  margin: 0;            /* NOT centred — matches the left-aligned column */
+  margin: 0;
 }
 .masthead .intro {
   flex: 1 1 20rem;      /* drops below the wordmark before it gets too narrow */
@@ -87,9 +88,10 @@ blockquote {
 /* nav claims a whole row of its own, under both */
 .masthead nav { flex: 0 0 100%; }
 
-/* nav: boxed items under the wordmark, void.cc style */
+/* nav: boxed chips, centred under the masthead */
 .masthead nav ul {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: .6rem;
   list-style: none;
@@ -260,9 +262,9 @@ pre code {
 .token.property, .token.tag, .token.constant, .token.symbol, .token.deleted { color: #f07178; }
 .token.boolean, .token.number { color: #c792ea; }
 .token.selector, .token.attr-name, .token.string, .token.char, .token.builtin,
-.token.inserted { color: #a5d6a7; }
+.token.inserted, .token.attr-value { color: #a5d6a7; }   /* attr values are strings */
 .token.operator, .token.entity, .token.url, .token.variable { color: #89ddff; }
-.token.atrule, .token.attr-value, .token.function, .token.class-name { color: var(--accent); }
+.token.atrule, .token.function, .token.class-name { color: var(--accent); }
 .token.keyword { color: #82aaff; }
 .token.regex, .token.important { color: #f78c6c; }
 .token.important, .token.bold { font-weight: bold; }
