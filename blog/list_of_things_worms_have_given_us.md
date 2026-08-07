@@ -1,4 +1,5 @@
 ---
+date: 2025-06-30
 title: Biological discoveries via C. elegans research
 ---
 

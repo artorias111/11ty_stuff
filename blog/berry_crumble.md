@@ -1,4 +1,5 @@
 ---
+date: 2026-02-05
 title: My new go-to snack
 ---
 

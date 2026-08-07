@@ -22,6 +22,9 @@
   </header>
 
   <main>
+    {%- if tags and "post" in tags %}
+    <p class="entry-date"><time datetime="{{ page.date | isoDate }}">{{ page.date | isoDate }}</time></p>
+    {%- endif %}
     {{ content | safe }}
   </main>
 

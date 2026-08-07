@@ -112,6 +112,37 @@ blockquote {
 ul, ol { padding-left: 1.4rem; }
 li { margin: .2rem 0; }
 
+/* ---- dated entry lists ---------------------------------------------- */
+/* Title first, date trailing and muted — the date is metadata, never the
+   heading. On narrow screens the date drops to its own line. */
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.entries li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .3rem .75rem;
+  padding: .35rem 0;
+  border-bottom: 1px solid #1a1a1a;
+}
+.entries time {
+  margin-left: auto;         /* pins dates to a right-hand column */
+  color: var(--muted);
+  font-size: .8rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* the same date, at the top of a single entry */
+.entry-date {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+  font-size: .8rem;
+}
+
 /* ---- images in content ---------------------------------------------- */
 main img {
   display: block;

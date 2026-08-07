@@ -1,4 +1,5 @@
 ---
+date: 2026-02-23
 title: Another go-to snack
 ---
 
