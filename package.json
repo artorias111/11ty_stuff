@@ -1,5 +1,13 @@
 {
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
   "dependencies": {
     "@11ty/eleventy-img": "^4.0.2"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2"
   }
 }

@@ -1,31 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>{{ title | default("TTAGGC") }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>{% if title and title != "Home" %}{{ title }} · TTAGGC{% else %}TTAGGC{% endif %}</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="/images/logo.svg" alt="Logo">
-    </div>
+  <header class="masthead">
+    <a class="logo" href="/"><img src="/images/logo.svg" alt="TTAGGC"></a>
+
     <nav>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <!-- Add more navigation links as needed -->
+        <li><a href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>
+          <img class="icon" src="/images/nav/home.svg" alt="">Home</a></li>
+        <li><a href="/about/"{% if page.url == "/about/" %} aria-current="page"{% endif %}>
+          <img class="icon" src="/images/nav/about.svg" alt="">About</a></li>
       </ul>
     </nav>
   </header>
-  <div class="container">
+
+  <main>
     {{ content | safe }}
-  </div>
+  </main>
+
+  <script>
+    // Adds a copy button to every code block. Purely additive: with JS off you
+    // still get highlighted, selectable code — just no button.
+    document.querySelectorAll("pre[class*='language-']").forEach(function (pre) {
+      var code = pre.querySelector("code");
+      if (!code) return;
+
+      var wrap = document.createElement("div");
+      wrap.className = "code-block";
+      pre.parentNode.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+
+      var btn = document.createElement("button");
+      btn.className = "copy";
+      btn.type = "button";
+      btn.textContent = "copy";
+      // The button is a sibling of <pre>, not inside it, so it can never end
+      // up in the copied text or in a manual selection.
+      wrap.appendChild(btn);
+
+      btn.addEventListener("click", function () {
+        navigator.clipboard.writeText(code.textContent).then(function () {
+          btn.textContent = "copied";
+          setTimeout(function () { btn.textContent = "copy"; }, 1200);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
