@@ -8,22 +8,37 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+  {#- Masthead is a two-row grid: wordmark and bio share the top row, the nav
+      spans the full width underneath. The nav is wider than the wordmark, so
+      it cannot share a row without squeezing the bio into a sliver. -#}
   <header class="masthead">
     <a class="logo" href="/"><img src="/images/logo.svg" alt="TTAGGC"></a>
 
+    {#- Bio shows only on the homepage — repeating it above every post would
+        bury the post. Text lives in _data/site.json. -#}
+    {%- if page.url == "/" %}
+    <p class="intro">{{ site.intro }}</p>
+    {%- endif %}
+
+    {# Nav lives in _data/nav.json. An item with no `art` just renders as text,
+       so a drawing can be swapped in or dropped one at a time. #}
     <nav>
       <ul>
-        <li><a href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>
-          <img class="icon" src="/images/nav/home.svg" alt="">Home</a></li>
-        <li><a href="/about/"{% if page.url == "/about/" %} aria-current="page"{% endif %}>
-          <img class="icon" src="/images/nav/about.svg" alt="">About</a></li>
+      {%- for item in nav %}
+        <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>
+          {%- if item.art %}<img class="icon" src="{{ item.art }}" alt="">{% endif %}{{ item.label }}</a></li>
+      {%- endfor %}
       </ul>
     </nav>
   </header>
 
   <main>
-    {%- if tags and "post" in tags %}
+    {#- Dated entries show when they were written; living pages (tech stack,
+        lab space) show when they were last revised instead. -#}
+    {%- if tags and ("post" in tags or "note" in tags) %}
     <p class="entry-date"><time datetime="{{ page.date | isoDate }}">{{ page.date | isoDate }}</time></p>
+    {%- elif updated %}
+    <p class="entry-date">last updated <time datetime="{{ updated | isoDate }}">{{ updated | isoDate }}</time></p>
     {%- endif %}
     {{ content | safe }}
   </main>

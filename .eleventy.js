@@ -15,4 +15,13 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addFilter("isoDate", function (d) {
     return new Date(d).toISOString().slice(0, 10);
   });
+
+  // Everything dated, newest first — this is what the homepage shows. Each
+  // entry carries a `section` label from its directory data file, so the list
+  // can say where an item came from without inspecting its URL.
+  eleventyConfig.addCollection("recent", function (api) {
+    return api.getFilteredByTag("post")
+      .concat(api.getFilteredByTag("note"))
+      .sort((a, b) => b.date - a.date);
+  });
 };

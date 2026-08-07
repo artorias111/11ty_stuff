@@ -1,0 +1,7 @@
+[
+  { "label": "Home",     "url": "/",          "art": "/images/nav/home.svg" },
+  { "label": "About",    "url": "/about/",    "art": "/images/nav/about.svg" },
+  { "label": "Notes",    "url": "/notes/",    "art": "/images/nav/notes.svg" },
+  { "label": "Posts",    "url": "/posts/",    "art": "/images/nav/posts.svg" },
+  { "label": "Projects", "url": "/projects/", "art": "/images/nav/projects.svg" }
+]

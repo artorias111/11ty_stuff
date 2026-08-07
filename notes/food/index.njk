@@ -1,17 +1,16 @@
 ---
-layout: default
-title: Home
+title: Food
+eleventyExcludeFromCollections: true
 ---
 
-<img src="/images/lymphocytes_2x.png" alt="xkcd 2749: Lymphocytes" width="45%"/>
+<h1>Food</h1>
 
-<h2>Recent</h2>
+<p>Things I cooked and would cook again.</p>
 
 <ul class="entries">
-{%- for entry in collections.recent %}
+{%- for entry in collections.food | reverse %}
   <li>
     <a href="{{ entry.url }}">{{ entry.data.title or entry.fileSlug }}</a>
-    <span class="label">{{ entry.data.section }}</span>
     <time datetime="{{ entry.date | isoDate }}">{{ entry.date | isoDate }}</time>
   </li>
 {%- endfor %}

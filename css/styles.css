@@ -12,7 +12,7 @@
 
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
           "DejaVu Sans Mono", monospace;
-  --measure: 640px;
+  --measure: 780px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -59,19 +59,33 @@ blockquote {
 }
 
 /* ---- masthead ------------------------------------------------------- */
+/* Wordmark and nav on the left, bio on the right. Stacks below 700px. */
 .masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 1.5rem 2.25rem;
   margin-bottom: 2.75rem;
-  padding-bottom: 1.25rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--line);
 }
-.masthead .logo { border: 0; display: block; line-height: 0; }
+.masthead .logo { flex: 0 0 auto; border: 0; display: block; line-height: 0; }
 .masthead .logo img {
   display: block;
-  width: 240px;         /* the wordmark is 469px wide; this reins it in */
+  width: 200px;         /* the wordmark is 469px wide; this reins it in */
   max-width: 100%;
   height: auto;
-  margin: 0 0 1.25rem;  /* NOT centred — matches the left-aligned column */
+  margin: 0;            /* NOT centred — matches the left-aligned column */
 }
+.masthead .intro {
+  flex: 1 1 20rem;      /* drops below the wordmark before it gets too narrow */
+  margin: 0;
+  max-width: none;      /* the prose cap applies to <main>, not here */
+  font-size: .875rem;
+  line-height: 1.75;
+}
+/* nav claims a whole row of its own, under both */
+.masthead nav { flex: 0 0 100%; }
 
 /* nav: boxed items under the wordmark, void.cc style */
 .masthead nav ul {
@@ -108,6 +122,10 @@ blockquote {
 .masthead nav a:hover .icon,
 .masthead nav a[aria-current="page"] .icon { filter: none; }
 
+/* Prose stays readable even though the shell is wider, so the masthead
+   has room for the bio. Lists, code and entry tables keep the full width. */
+main p:not(.entry-date), main blockquote { max-width: 64ch; }
+
 /* ---- lists ---------------------------------------------------------- */
 ul, ol { padding-left: 1.4rem; }
 li { margin: .2rem 0; }
@@ -134,6 +152,31 @@ li { margin: .2rem 0; }
   font-size: .8rem;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+
+/* Section label on mixed listings ("Food", "Posts", "living page").
+   NOT named .tag — that would also match Prism's .token.tag in code blocks. */
+.label {
+  color: var(--muted);
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-transform: lowercase;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 0 .35rem;
+}
+
+/* the index of sub-sections on /notes/ */
+.sections {
+  list-style: none;
+  margin: 1.5rem 0 2.5rem;
+  padding: 0;
+}
+.sections li {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  padding: .25rem 0;
 }
 
 /* the same date, at the top of a single entry */

@@ -1,17 +1,16 @@
 ---
-layout: default
-title: Home
+title: Reading
+eleventyExcludeFromCollections: true
 ---
 
-<img src="/images/lymphocytes_2x.png" alt="xkcd 2749: Lymphocytes" width="45%"/>
+<h1>Reading</h1>
 
-<h2>Recent</h2>
+<p>What I've been reading.</p>
 
 <ul class="entries">
-{%- for entry in collections.recent %}
+{%- for entry in collections.reading | reverse %}
   <li>
     <a href="{{ entry.url }}">{{ entry.data.title or entry.fileSlug }}</a>
-    <span class="label">{{ entry.data.section }}</span>
     <time datetime="{{ entry.date | isoDate }}">{{ entry.date | isoDate }}</time>
   </li>
 {%- endfor %}
