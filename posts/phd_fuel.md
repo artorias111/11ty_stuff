@@ -1,6 +1,9 @@
 ---
 date: 2026-02-05
 title: PhD fuel
+draft: true
+permalink: /notes/food/phd_fuel/
+tags: ["food"]
 ---
 
 # PhD fuel

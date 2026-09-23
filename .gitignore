@@ -7,3 +7,9 @@ _site
 public
 
 .DS_Store
+
+AGENTS.md
+
+posts/garageband*
+
+to_do_ideas.txt

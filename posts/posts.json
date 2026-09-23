@@ -1,5 +1,5 @@
 {
   "layout": "default",
-  "tags": "post",
-  "section": "Posts"
+  "entry": true,
+  "tags": []
 }

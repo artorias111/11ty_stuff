@@ -1,0 +1,24 @@
+{% macro entryList(entries) %}
+<ul class="entries">
+  {%- for entry in entries %}
+  <li>
+    <div class="entry-summary">
+      <a href="{{ entry.url }}">{{ (entry.data.title or entry.fileSlug) | emphasis | safe }}</a>
+      {% if entry.data.draft %}<span class="label">draft</span>{% endif %}
+      {%- if entry.data.tags.length %}
+      <div class="entry-tags">
+        {%- for tag in entry.data.tags %}
+        <a class="label" href="/tags/{{ tag | slugify }}/">{{ tag }}</a>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+    </div>
+    {% if entry.data.living %}
+    <time datetime="{{ entry.data.updated | isoDate }}">updated {{ entry.data.updated | isoDate }}</time>
+    {% else %}
+    <time datetime="{{ entry.date | isoDate }}">{{ entry.date | isoDate }}</time>
+    {% endif %}
+  </li>
+  {%- endfor %}
+</ul>
+{% endmacro %}

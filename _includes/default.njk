@@ -3,8 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
+  <meta name="color-scheme" content="dark light">
   <title>{% if title and title != "Home" %}{{ title | plain }} · TTAGGC{% else %}TTAGGC{% endif %}</title>
+  <script>
+    // Replays a PINNED theme before first paint — anything later and the page
+    // renders in one palette and repaints in another. Kept inline and blocking
+    // for that reason; it is three lines of work.
+    //
+    // Nothing stored means nothing to do: with no data-theme the stylesheet's
+    // bare :root already paints the default black.
+    (function () {
+      var d = document.documentElement;
+      d.className += " has-js";        // unhides the switcher, which is inert without JS
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "black" || t === "dark" || t === "light") d.setAttribute("data-theme", t);
+      } catch (e) {}                   // private mode / storage disabled: stay on the default
+    })();
+  </script>
+  {#- KaTeX's stylesheet is 23KB and most pages have no maths on them, so it
+      is linked only by the ones that do. The formulas are already rendered at
+      build time, so `content` is finished markup here and KaTeX's own wrapper
+      class is the honest signal that a page needs the stylesheet. A page that
+      merely says the word "katex" in a code block loads it needlessly — which
+      costs a request, not a broken page. -#}
+  {%- if "katex" in content %}
+  <link rel="stylesheet" href="/css/katex.min.css">
+  {%- endif %}
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -22,21 +47,35 @@
 
     {# Nav lives in _data/nav.json. An item with no `art` just renders as text,
        so a drawing can be swapped in or dropped one at a time. #}
-    <nav>
+    <nav aria-label="Main">
       <ul>
       {%- for item in nav %}
         <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>
           {%- if item.art %}<img class="icon" src="{{ item.art }}" alt="">{% endif %}{{ item.label }}</a></li>
       {%- endfor %}
       </ul>
+
+      {#- Three swatches, right-hand end of the nav row. Not a corner control:
+          the top row is the wordmark and the bio, and a floating one would
+          land on the bio on the homepage. -#}
+      <div class="theme-switch" role="group" aria-label="Colour theme">
+        <button type="button" data-theme-set="black" aria-label="Black" title="black"></button>
+        <button type="button" data-theme-set="dark"  aria-label="Dark"  title="dark"></button>
+        <button type="button" data-theme-set="light" aria-label="Light" title="light"></button>
+      </div>
     </nav>
   </header>
 
   <main>
-    {#- Dated entries show when they were written; living pages (tech stack,
-        lab space) show when they were last revised instead. -#}
-    {%- if tags and ("post" in tags or "note" in tags) %}
-    <p class="entry-date"><time datetime="{{ page.date | isoDate }}">{{ page.date | isoDate }}</time></p>
+    {%- if entry %}
+    <p class="entry-date">{% if living %}last updated <time datetime="{{ updated | isoDate }}">{{ updated | isoDate }}</time>{% else %}<time datetime="{{ page.date | isoDate }}">{{ page.date | isoDate }}</time>{% endif %}{% if draft %} · draft{% endif %}</p>
+    {%- if tags.length %}
+    <p class="entry-tags">
+      {%- for tag in tags %}
+      <a class="label" href="/tags/{{ tag | slugify }}/">{{ tag }}</a>
+      {%- endfor %}
+    </p>
+    {%- endif %}
     {%- elif updated %}
     <p class="entry-date">last updated <time datetime="{{ updated | isoDate }}">{{ updated | isoDate }}</time></p>
     {%- endif %}
@@ -44,6 +83,36 @@
   </main>
 
   <script>
+    // Wires the theme swatches. The palette itself is the stylesheet's job —
+    // this pins a choice and keeps aria-pressed honest about what is showing.
+    (function () {
+      var root = document.documentElement;
+      var btns = document.querySelectorAll("[data-theme-set]");
+
+      // Unpinned there is no attribute to read, and the stylesheet's bare
+      // :root is black — so that is what is showing.
+      function showing() {
+        return root.getAttribute("data-theme") || "black";
+      }
+
+      function sync() {
+        var current = showing();
+        btns.forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.dataset.themeSet === current));
+        });
+      }
+
+      btns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          root.setAttribute("data-theme", b.dataset.themeSet);
+          try { localStorage.setItem("theme", b.dataset.themeSet); } catch (e) {}
+          sync();
+        });
+      });
+
+      sync();
+    })();
+
     // Adds a copy button to every code block. Purely additive: with JS off you
     // still get highlighted, selectable code — just no button.
     document.querySelectorAll("pre[class*='language-']").forEach(function (pre) {

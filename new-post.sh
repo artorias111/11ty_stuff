@@ -1,46 +1,41 @@
 #!/bin/bash
-# Usage: ./new-post.sh <section> "My post title"
-#   e.g. ./new-post.sh posts   "Calling telomere variants"
-#        ./new-post.sh food    "Malai broccoli, again"
-#
-# Sections: posts, food, travel, reading
-# (tech-stack and lab-space are living pages — edit them in place and bump
-#  their `updated:` date instead of adding an entry.)
+# Usage: ./new-post.sh [--living] "Title"
+set -euo pipefail
+cd "$(dirname "$0")"
 
-set -e
-
-case "$1" in
-  posts)             DIR="posts" ;;
-  food|travel|reading) DIR="notes/$1" ;;
-  "")   echo "Usage: ./new-post.sh <posts|food|travel|reading> \"Post Title\""; exit 1 ;;
-  *)    echo "Unknown section: $1"; echo "Use one of: posts, food, travel, reading"; exit 1 ;;
-esac
-
-TITLE="$2"
-if [ -z "$TITLE" ]; then
-  echo "Usage: ./new-post.sh $1 \"Post Title\""
+LIVING=false
+if [ "${1:-}" = "--living" ]; then
+  LIVING=true
+  shift
+fi
+if [ "$#" -ne 1 ] || [ -z "$1" ]; then
+  echo 'Usage: ./new-post.sh [--living] "Title"' >&2
   exit 1
 fi
 
-SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
-FILE="${DIR}/${SLUG}.md"
-
-if [ -f "$FILE" ]; then
-  echo "File already exists: $FILE"
+TITLE="$1"
+SLUG=$(printf '%s' "$TITLE" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd '[:alnum:]-')
+if [ -z "$SLUG" ]; then
+  echo 'Title must contain a letter or number for the filename.' >&2
+  exit 1
+fi
+FILE="posts/${SLUG}.md"
+if [ -e "$FILE" ]; then
+  echo "File already exists: $FILE" >&2
   exit 1
 fi
 
-cat > "$FILE" <<EOF
----
-date: $(date +%F)
-title: $TITLE
----
-
-# $TITLE
-
-<!-- To add an image: ./add-image.sh path/to/photo.jpg -->
-
-EOF
+# JSON strings are valid YAML, including titles with quotes or colons.
+QUOTED_TITLE=$(node -e 'process.stdout.write(JSON.stringify(process.argv[1]))' -- "$TITLE")
+{
+  printf '%s\n' '---' "title: $QUOTED_TITLE"
+  if [ "$LIVING" = true ]; then
+    printf '%s\n' 'living: true' "updated: $(date +%F)"
+  else
+    printf '%s\n' "date: $(date +%F)"
+  fi
+  printf '%s\n' 'tags: []' 'draft: true' '---' '' "# $TITLE" ''
+} > "$FILE"
 
 echo "Created $FILE"
 ${EDITOR:-nano} "$FILE"

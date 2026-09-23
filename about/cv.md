@@ -1,20 +1,16 @@
 ---
 title: CV
 permalink: /cv/
-updated: 2026-08-07
+draft: true   # remove this line once `cv` is set in _data/site.json
+layout: default
 ---
 
 # CV
 
-<!-- TODO(you): drop a PDF into images/ (or a files/ directory) and link it
-     here, then fill in the sections below. Bump `updated` when you do. -->
+<!-- The link comes from `cv` in _data/site.json, so there is one place to
+     change it — a committed PDF or an Overleaf view link, either works.
+     Bump `cvUpdated` in the same file when you replace it. -->
 
-## Education
+<p class="cv-link"><a href="{{ site.cv }}">Download CV (PDF)</a></p>
 
-## Research
-
-## Publications
-
-## Software
-
-## Teaching
+<p class="muted">Last updated {{ site.cvUpdated }}.</p>

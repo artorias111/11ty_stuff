@@ -1,18 +1,121 @@
 /* ---------------------------------------------------------------------
-   TTAGGC — monospace, true black, one column.
-   Every colour and size worth changing lives in this block.
-   --------------------------------------------------------------------- */
-:root {
-  --bg:      #000;          /* amoled black, deliberately not #111 */
-  --text:    #dddddd;
-  --muted:   #808080;
-  --accent:  #EC5B38;       /* vermilion; everything accented keys off this one value */
-  --line:    #333333;
-  --code-bg: #0d0d0d;
+   TTAGGC — monospace, one column, three palettes.
 
+   With nothing stored the site is AMOLED BLACK, for everyone, whatever the
+   browser reports — the original site's palette, restored as the default.
+   The switcher in the nav row pins one of the three in localStorage, which
+   is the only thing that ever puts a `data-theme` on <html>. Gruvbox `dark`
+   and `light` are reachable only that way.
+
+   There is no prefers-color-scheme query and no auto state: unpinned is one
+   fixed palette, so a cold visit is correct on first paint with no work. The
+   head script only replays a stored pin.
+
+   Anything a theme needs to change is a custom property HERE — no colour
+   literals below this block, or a theme will only be two-thirds applied.
+   --------------------------------------------------------------------- */
+
+/* ---- dark: gruvbox material hard, yellow -----------------------------
+   Pinned only. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg:      #1d2021;       /* gruvbox material bg0, hard contrast */
+  --text:    #d4be98;       /* fg0 */
+  --heading: #ddc7a1;
+  --muted:   #928374;       /* grey2 */
+  --accent:  #d8a657;       /* gruvbox material yellow, softened */
+  --line:    #45403d;       /* bg4 */
+  --rule:    #383432;       /* the fainter rule between listed entries */
+  --code-bg: #141617;       /* bg_dim, so blocks sit below the page */
+  --on-accent: #1d2021;     /* text/art sitting ON an accent fill */
+
+  /* The wordmark is drawn white and the nav icons are drawn black, so on a
+     dark ground exactly one of them needs inverting — and on a light ground
+     it is the other one. `-active` is the icon inside a filled chip. */
+  --logo-invert: 0;
+  --icon-invert: 1;
+  --icon-invert-active: 0;
+
+  /* Prism tokens. The plugin ships classes but no theme; this is the theme,
+     applied at the bottom of the file. */
+  --tok-comment: #7c6f64;   /* grey1 */
+  --tok-punct:   #928374;
+  --tok-tag:     #ea6962;   /* red */
+  --tok-number:  #d3869b;   /* purple */
+  --tok-string:  #a9b665;   /* green */
+  --tok-op:      #89b482;   /* aqua */
+  --tok-keyword: #7daea3;   /* blue */
+  --tok-regex:   #e78a4e;   /* orange */
+}
+
+/* Not themed, so they sit outside the palettes and are declared once. */
+:root {
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
           "DejaVu Sans Mono", monospace;
   --measure: 780px;
+  --switch-w: 4rem;         /* the switcher AND its balancing spacer; see nav::before */
+}
+
+/* ---- light: white, blue ----------------------------------------------
+   Pinned only. Written once — this used to be duplicated across a
+   prefers-color-scheme boundary, and that query is gone. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg:      #ffffff;
+  --text:    #1c1c1c;
+  --heading: #000000;
+  --muted:   #6b6b6b;
+  --accent:  #1a5fb4;
+  --line:    #d6d6d6;
+  --rule:    #ececec;
+  --code-bg: #f7f7f5;
+  --on-accent: #ffffff;
+
+  --logo-invert: 1;
+  --icon-invert: 0;
+  --icon-invert-active: 1;
+
+  --tok-comment: #6e7781;
+  --tok-punct:   #57606a;
+  --tok-tag:     #116329;
+  --tok-number:  #0550ae;
+  --tok-string:  #0a3069;
+  --tok-op:      #953800;
+  --tok-keyword: #cf222e;
+  --tok-regex:   #953800;
+}
+
+/* ---- black: amoled, vermilion ----------------------------------------
+   THE DEFAULT — the bare :root, what an unpinned visitor gets on any OS.
+   This is the original site's palette. */
+:root,
+:root[data-theme="black"] {
+  color-scheme: dark;
+
+  --bg:      #000;          /* amoled black, deliberately not #111 */
+  --text:    #dddddd;
+  --heading: #ffffff;
+  --muted:   #808080;
+  --accent:  #EC5B38;       /* vermilion */
+  --line:    #333333;
+  --rule:    #1a1a1a;
+  --code-bg: #0d0d0d;
+  --on-accent: #000;
+
+  --logo-invert: 0;
+  --icon-invert: 1;
+  --icon-invert-active: 0;
+
+  --tok-comment: #6a6a6a;
+  --tok-punct:   #999999;
+  --tok-tag:     #f07178;
+  --tok-number:  #c792ea;
+  --tok-string:  #a5d6a7;
+  --tok-op:      #89ddff;
+  --tok-keyword: #82aaff;
+  --tok-regex:   #f78c6c;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -38,7 +141,7 @@ a:hover { border-bottom-color: var(--accent); }
 
 /* ---- headings ------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6 {
-  color: #fff;
+  color: var(--heading);
   line-height: 1.35;
   margin: 2.4rem 0 .8rem;
   font-weight: 700;
@@ -77,6 +180,7 @@ blockquote {
   max-width: 100%;
   height: auto;
   margin: 0;
+  filter: invert(var(--logo-invert));   /* drawn white; flipped on light */
 }
 .masthead .intro {
   flex: 1 1 20rem;      /* drops below the wordmark before it gets too narrow */
@@ -85,11 +189,26 @@ blockquote {
   font-size: .875rem;
   line-height: 1.75;
 }
-/* nav claims a whole row of its own, under both */
-.masthead nav { flex: 0 0 100%; }
+/* Nav claims a whole row of its own, under both. The theme switcher rides at
+   the right-hand end of that row — the top row is already spoken for by the
+   wordmark and the bio, so a corner control would sit on top of the bio. */
+.masthead nav {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+/* The switcher is a real flex item, so the chips would centre in what's left
+   and drift left of the page centre. An empty item of the same width on the
+   other side puts them back. */
+.masthead nav::before {
+  content: "";
+  flex: 0 0 var(--switch-w);
+}
 
 /* nav: boxed chips, centred under the masthead */
 .masthead nav ul {
+  flex: 1 1 auto;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -110,19 +229,54 @@ blockquote {
 .masthead nav a:hover,
 .masthead nav a[aria-current="page"] {
   background: var(--accent);
-  color: #000;
+  color: var(--on-accent);
 }
-/* Icons are black line art, so they invert to white on the black background —
-   and back to black again when a hovered/current item flips to a light chip. */
+/* Icons are black line art, so they invert to white on a dark background —
+   and back to black again when a hovered/current item flips to a filled chip.
+   On the light theme both of those flip the other way; see --icon-invert. */
 .masthead nav .icon {
   width: 17px;
   height: 17px;
   margin: 0;
   object-fit: contain;
-  filter: invert(1);
+  filter: invert(var(--icon-invert));
 }
 .masthead nav a:hover .icon,
-.masthead nav a[aria-current="page"] .icon { filter: none; }
+.masthead nav a[aria-current="page"] .icon { filter: invert(var(--icon-invert-active)); }
+
+/* ---- theme switcher --------------------------------------------------
+   Three swatches showing the page colour each one gives you. Hidden without
+   JS, since it cannot do anything then — the .has-js class is added by the
+   same inline head script that applies the stored theme before first paint.
+   --------------------------------------------------------------------- */
+.theme-switch {
+  flex: 0 0 var(--switch-w);
+  display: none;
+  justify-content: flex-end;
+  gap: .4rem;               /* wide enough that the pressed ring clears its neighbour */
+}
+.has-js .theme-switch { display: flex; }
+
+.theme-switch button {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--swatch);
+  cursor: pointer;
+  /* Safari puts a default appearance on buttons that would eat the swatch. */
+  -webkit-appearance: none;
+          appearance: none;
+}
+.theme-switch button:hover { border-color: var(--accent); }
+.theme-switch button[aria-pressed="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--bg), 0 0 0 2px var(--accent);
+}
+.theme-switch button[data-theme-set="black"] { --swatch: #000; }
+.theme-switch button[data-theme-set="dark"]  { --swatch: #1d2021; }
+.theme-switch button[data-theme-set="light"] { --swatch: #fff; }
 
 /* Prose stays readable even though the shell is wider, so the masthead
    has room for the bio. Lists, code and entry tables keep the full width. */
@@ -146,7 +300,7 @@ li { margin: .2rem 0; }
   align-items: baseline;
   gap: .3rem .75rem;
   padding: .35rem 0;
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid var(--rule);
 }
 .entries time {
   margin-left: auto;         /* pins dates to a right-hand column */
@@ -156,29 +310,29 @@ li { margin: .2rem 0; }
   white-space: nowrap;
 }
 
-/* Section label on mixed listings ("Food", "Posts", "living page").
-   NOT named .tag — that would also match Prism's .token.tag in code blocks. */
+.entry-summary {
+  flex: 1 1 20rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .5rem;
+  margin: .2rem 0 0;
+}
+main > .entry-tags { margin: -.75rem 0 1.5rem; }
 .label {
   color: var(--muted);
   font-size: .72rem;
-  letter-spacing: .04em;
-  text-transform: lowercase;
   border: 1px solid var(--line);
   border-radius: 2px;
   padding: 0 .35rem;
 }
-
-/* the index of sub-sections on /notes/ */
-.sections {
-  list-style: none;
-  margin: 1.5rem 0 2.5rem;
-  padding: 0;
-}
-.sections li {
-  display: flex;
-  align-items: baseline;
-  gap: .6rem;
-  padding: .25rem 0;
+a.label:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
 }
 
 /* the same date, at the top of a single entry */
@@ -205,11 +359,41 @@ main img {
   height: auto;
   border-radius: 14px 22px 12px 26px / 20px 12px 24px 14px;
 }
-/* three corner sets, cycled, so a page of images doesn't look stamped out */
-main img:nth-of-type(3n + 2) { border-radius: 24px 12px 20px 14px / 12px 22px 14px 24px; }
-main img:nth-of-type(3n + 3) { border-radius: 10px 26px 16px 20px / 22px 14px 26px 10px; }
+/* Three corner sets, cycled, so a page of images doesn't look stamped out.
+   `:nth-of-type` counts among SIBLINGS of the same element, so a captioned
+   image — an only-child <img> inside its own <figure> — is always the 1st of
+   its type and would take the default set every time. The figure selectors
+   below cycle the figures themselves, which is what restores the variety. */
+main img:nth-of-type(3n + 2),
+main figure:nth-of-type(3n + 2) img { border-radius: 24px 12px 20px 14px / 12px 22px 14px 24px; }
+main img:nth-of-type(3n + 3),
+main figure:nth-of-type(3n + 3) img { border-radius: 10px 26px 16px 20px / 22px 14px 26px 10px; }
 
 main img.sharp { border-radius: 0; }
+
+/* ---- captions -------------------------------------------------------
+   `![alt](/images/x.png "caption")` builds the figure automatically (see
+   .eleventy.js); write <figure> out by hand when the image needs a class or
+   a width. A caption is metadata, so it takes the same small muted treatment
+   as a date rather than a size of its own. */
+main figure {
+  margin: 1.75rem auto;   /* replaces the browser default of 1em 40px, which
+                             would indent every captioned image */
+  max-width: 100%;
+}
+/* The figure already carries the spacing; a second copy on the image would
+   push the caption away from the picture it belongs to. */
+main figure img { margin: 0 auto; }
+
+main figcaption {
+  max-width: 64ch;        /* matches the prose measure, so a long caption
+                             can't run wider than the text around it */
+  margin: .6rem auto 0;
+  color: var(--muted);
+  font-size: .8rem;
+  line-height: 1.5;
+  text-align: center;     /* images are centred, so the caption is too */
+}
 
 main img.torn {
   border-radius: 0;
@@ -219,6 +403,20 @@ main img.torn {
           mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
+}
+
+/* ---- math ----------------------------------------------------------- */
+/* KaTeX ships its own stylesheet (linked ahead of this one) and it needs no
+   help — but its markup and its CSS must come from the SAME KaTeX version, or
+   fractions collapse onto their own rule. See the note in .eleventy.js. */
+
+/* Display math gets room to breathe, and scrolls on its own if a formula is
+   wider than the column — the page body must never scroll sideways. */
+.katex-display {
+  margin: 1.6rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: .2rem 0;
 }
 
 /* ---- code ----------------------------------------------------------- */
@@ -275,23 +473,23 @@ pre code {
 }
 .code-block:hover .copy,
 .code-block .copy:focus { opacity: 1; }
-.code-block .copy:hover { color: #000; background: var(--accent); border-color: var(--accent); }
+.code-block .copy:hover { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
 
 /* ---- Prism tokens ---------------------------------------------------
    The Eleventy plugin emits Prism's classes but ships no theme, so this is
    the theme. Highlighting happens at build time — no Prism in the browser.
    --------------------------------------------------------------------- */
-.token.comment, .token.prolog, .token.doctype, .token.cdata { color: #6a6a6a; font-style: italic; }
-.token.punctuation { color: #999; }
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: var(--tok-comment); font-style: italic; }
+.token.punctuation { color: var(--tok-punct); }
 .token.namespace { opacity: .7; }
-.token.property, .token.tag, .token.constant, .token.symbol, .token.deleted { color: #f07178; }
-.token.boolean, .token.number { color: #c792ea; }
+.token.property, .token.tag, .token.constant, .token.symbol, .token.deleted { color: var(--tok-tag); }
+.token.boolean, .token.number { color: var(--tok-number); }
 .token.selector, .token.attr-name, .token.string, .token.char, .token.builtin,
-.token.inserted, .token.attr-value { color: #a5d6a7; }   /* attr values are strings */
-.token.operator, .token.entity, .token.url, .token.variable { color: #89ddff; }
+.token.inserted, .token.attr-value { color: var(--tok-string); }   /* attr values are strings */
+.token.operator, .token.entity, .token.url, .token.variable { color: var(--tok-op); }
 .token.atrule, .token.function, .token.class-name { color: var(--accent); }
-.token.keyword { color: #82aaff; }
-.token.regex, .token.important { color: #f78c6c; }
+.token.keyword { color: var(--tok-keyword); }
+.token.regex, .token.important { color: var(--tok-regex); }
 .token.important, .token.bold { font-weight: bold; }
 .token.italic { font-style: italic; }
 
@@ -299,4 +497,6 @@ pre code {
 @media (max-width: 600px) {
   body { padding-top: 1.75rem; }
   .masthead .logo img { width: 190px; }
+  /* Chips already wrap here, so the centring spacer is just stolen width. */
+  .masthead nav::before { display: none; }
 }

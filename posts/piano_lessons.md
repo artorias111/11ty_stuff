@@ -1,11 +1,12 @@
 ---
-date: 2026-02-05
 title: Piano lessons
+tags: ["music"]
+permalink: /notes/music/piano_lessons/
+living: true
+updated: 2026-02-11
 ---
 
 # Piano lessons
-Thank you Shruti. 
-
 [Piano lessons](https://www.youtube.com/watch?v=AfXPOGbmSmY)
 
 ## 2026-02-11
@@ -18,4 +19,4 @@ Thank you Shruti.
 
 ## 2026-02-04 : Week 1
 - Beethoven's Ode to Joy. (Right hand) practice. 
-  - Made it to 90%. 
+  - Made it to 90%.
