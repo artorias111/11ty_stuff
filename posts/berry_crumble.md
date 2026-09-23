@@ -1,6 +1,6 @@
 ---
 date: 2026-02-05
-title: My new go-to snack
+title: Berry crumble
 permalink: /notes/food/berry_crumble/
 tags: ["food"]
 ---
