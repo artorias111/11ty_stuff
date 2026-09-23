@@ -6,58 +6,32 @@
   <meta name="color-scheme" content="dark light">
   <title>{% if title and title != "Home" %}{{ title | plain }} · TTAGGC{% else %}TTAGGC{% endif %}</title>
   <script>
-    // Replays a PINNED theme before first paint — anything later and the page
-    // renders in one palette and repaints in another. Kept inline and blocking
-    // for that reason; it is three lines of work.
-    //
-    // Nothing stored means nothing to do: with no data-theme the stylesheet's
-    // bare :root already paints the default black.
     (function () {
       var d = document.documentElement;
-      d.className += " has-js";        // unhides the switcher, which is inert without JS
+      d.className += " has-js";
       try {
         var t = localStorage.getItem("theme");
         if (t === "black" || t === "dark" || t === "light") d.setAttribute("data-theme", t);
-      } catch (e) {}                   // private mode / storage disabled: stay on the default
+      } catch (e) {}
     })();
   </script>
-  {#- KaTeX's stylesheet is 23KB and most pages have no maths on them, so it
-      is linked only by the ones that do. The formulas are already rendered at
-      build time, so `content` is finished markup here and KaTeX's own wrapper
-      class is the honest signal that a page needs the stylesheet. A page that
-      merely says the word "katex" in a code block loads it needlessly — which
-      costs a request, not a broken page. -#}
+
   {%- if "katex" in content %}
   <link rel="stylesheet" href="/css/katex.min.css">
   {%- endif %}
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  {#- Masthead is a two-row grid: wordmark and bio share the top row, the nav
-      spans the full width underneath. The nav is wider than the wordmark, so
-      it cannot share a row without squeezing the bio into a sliver. -#}
+
   <header class="masthead">
     <a class="logo" href="/"><img src="/images/logo.svg" alt="TTAGGC"></a>
 
-    {#- Bio shows only on the homepage — repeating it above every post would
-        bury the post. Text lives in _data/site.json. -#}
-    {%- if page.url == "/" %}
-    <p class="intro">{{ site.intro }}</p>
-    {%- endif %}
-
-    {# Nav lives in _data/nav.json. An item with no `art` just renders as text,
-       so a drawing can be swapped in or dropped one at a time. #}
     <nav aria-label="Main">
       <ul>
-      {%- for item in nav %}
-        <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>
-          {%- if item.art %}<img class="icon" src="{{ item.art }}" alt="">{% endif %}{{ item.label }}</a></li>
-      {%- endfor %}
+        <li><a href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>Home</a></li>
+        <li><a href="/about/"{% if page.url == "/about/" %} aria-current="page"{% endif %}>About</a></li>
       </ul>
 
-      {#- Three swatches, right-hand end of the nav row. Not a corner control:
-          the top row is the wordmark and the bio, and a floating one would
-          land on the bio on the homepage. -#}
       <div class="theme-switch" role="group" aria-label="Colour theme">
         <button type="button" data-theme-set="black" aria-label="Black" title="black"></button>
         <button type="button" data-theme-set="dark"  aria-label="Dark"  title="dark"></button>
@@ -76,27 +50,16 @@
       {%- endfor %}
     </p>
     {%- endif %}
-    {%- elif updated %}
-    <p class="entry-date">last updated <time datetime="{{ updated | isoDate }}">{{ updated | isoDate }}</time></p>
     {%- endif %}
     {{ content | safe }}
   </main>
 
   <script>
-    // Wires the theme swatches. The palette itself is the stylesheet's job —
-    // this pins a choice and keeps aria-pressed honest about what is showing.
     (function () {
       var root = document.documentElement;
       var btns = document.querySelectorAll("[data-theme-set]");
-
-      // Unpinned there is no attribute to read, and the stylesheet's bare
-      // :root is black — so that is what is showing.
-      function showing() {
-        return root.getAttribute("data-theme") || "black";
-      }
-
       function sync() {
-        var current = showing();
+        var current = root.getAttribute("data-theme") || "black";
         btns.forEach(function (b) {
           b.setAttribute("aria-pressed", String(b.dataset.themeSet === current));
         });
@@ -112,9 +75,7 @@
 
       sync();
     })();
-
-    // Adds a copy button to every code block. Purely additive: with JS off you
-    // still get highlighted, selectable code — just no button.
+    {% if '<pre class="language-' in content %}
     document.querySelectorAll("pre[class*='language-']").forEach(function (pre) {
       var code = pre.querySelector("code");
       if (!code) return;
@@ -128,8 +89,6 @@
       btn.className = "copy";
       btn.type = "button";
       btn.textContent = "copy";
-      // The button is a sibling of <pre>, not inside it, so it can never end
-      // up in the copied text or in a manual selection.
       wrap.appendChild(btn);
 
       btn.addEventListener("click", function () {
@@ -139,6 +98,7 @@
         });
       });
     });
+    {% endif %}
   </script>
 </body>
 </html>
