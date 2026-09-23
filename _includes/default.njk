@@ -1,31 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>{{ title | default("TTAGGC") }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>{% if title and title != "Home" %}{{ title | plain }} · TTAGGC{% else %}TTAGGC{% endif %}</title>
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.className += " has-js";
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "black" || t === "dark" || t === "light") d.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+
+  {%- if "katex" in content %}
+  <link rel="stylesheet" href="/css/katex.min.css">
+  {%- endif %}
   <link rel="stylesheet" href="/css/styles.css">
-  <style>
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="/images/logo.svg" alt="Logo">
-    </div>
-    <nav>
+
+  <header class="masthead">
+    <a class="logo" href="/"><img src="/images/logo.svg" alt="TTAGGC"></a>
+
+    <nav aria-label="Main">
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <!-- Add more navigation links as needed -->
+        <li><a href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>Home</a></li>
+        <li><a href="/about/"{% if page.url == "/about/" %} aria-current="page"{% endif %}>About</a></li>
       </ul>
+
+      <div class="theme-switch" role="group" aria-label="Colour theme">
+        <button type="button" data-theme-set="black" aria-label="Black" title="black"></button>
+        <button type="button" data-theme-set="dark"  aria-label="Dark"  title="dark"></button>
+        <button type="button" data-theme-set="light" aria-label="Light" title="light"></button>
+      </div>
     </nav>
   </header>
-  <div class="container">
+
+  <main>
+    {%- if entry %}
+    <p class="entry-date">{% if living %}last updated <time datetime="{{ updated | isoDate }}">{{ updated | isoDate }}</time>{% else %}<time datetime="{{ page.date | isoDate }}">{{ page.date | isoDate }}</time>{% endif %}{% if draft %} · draft{% endif %}</p>
+    {%- if tags.length %}
+    <p class="entry-tags">
+      {%- for tag in tags %}
+      <a class="label" href="/tags/{{ tag | slugify }}/">{{ tag }}</a>
+      {%- endfor %}
+    </p>
+    {%- endif %}
+    {%- endif %}
     {{ content | safe }}
-  </div>
+  </main>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var btns = document.querySelectorAll("[data-theme-set]");
+      function sync() {
+        var current = root.getAttribute("data-theme") || "black";
+        btns.forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.dataset.themeSet === current));
+        });
+      }
+
+      btns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          root.setAttribute("data-theme", b.dataset.themeSet);
+          try { localStorage.setItem("theme", b.dataset.themeSet); } catch (e) {}
+          sync();
+        });
+      });
+
+      sync();
+    })();
+    {% if '<pre class="language-' in content %}
+    document.querySelectorAll("pre[class*='language-']").forEach(function (pre) {
+      var code = pre.querySelector("code");
+      if (!code) return;
+
+      var wrap = document.createElement("div");
+      wrap.className = "code-block";
+      pre.parentNode.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+
+      var btn = document.createElement("button");
+      btn.className = "copy";
+      btn.type = "button";
+      btn.textContent = "copy";
+      wrap.appendChild(btn);
+
+      btn.addEventListener("click", function () {
+        navigator.clipboard.writeText(code.textContent).then(function () {
+          btn.textContent = "copied";
+          setTimeout(function () { btn.textContent = "copy"; }, 1200);
+        });
+      });
+    });
+    {% endif %}
+  </script>
 </body>
 </html>

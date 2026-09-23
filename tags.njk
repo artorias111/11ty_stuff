@@ -1,0 +1,24 @@
+---
+layout: default
+pagination:
+  data: collections.topics
+  size: 1
+  alias: topic
+permalink: "/tags/{{ topic.slug }}/"
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  title: "{{ topic.tag }}"
+---
+{% from "entries.njk" import entryList %}
+
+<h1>{{ topic.tag }}</h1>
+
+{% if topic.writing.length %}
+<h2>Writing</h2>
+{{ entryList(topic.writing) }}
+{% endif %}
+
+{% if topic.ongoing.length %}
+<h2>Ongoing</h2>
+{{ entryList(topic.ongoing) }}
+{% endif %}

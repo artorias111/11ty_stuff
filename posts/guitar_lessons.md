@@ -1,8 +1,25 @@
 ---
 title: Guitar lessons
+tags: ["music"]
+permalink: /notes/music/guitar_lessons/
+living: true
+updated: 2026-08-25
 ---
 
 # Guitar lessons
+
+## 2026-08-25
+- Scales from the free [Learn and Master Guitar by Steve Krenz book](https://www.learnandmaster.com/main/pages/resources/)
+
+## 2026-08-24
+- Tried to play two songs
+  - [Plini - Selenium Forest](https://www.youtube.com/watch?v=5fNhD_lP1F4)
+  - [Porcupine tree - My Ashes (Live)](https://www.youtube.com/watch?v=NJYGzL0k0_o)
+- I need to learn scales
+
+## 2026-05-13
+- Okay, semester done, back to guitar
+- Revisited single not melodies
 
 ## 2026-03-16
 - Big break
@@ -65,4 +82,4 @@ title: Guitar lessons
 - 12 bar blues: Chord progression (A,D,E) - AAAA-DD-AA-E-D-AA
 
 ## 2026-02-03 : Week 1
-- Chords C and G. 
+- Chords C and G.

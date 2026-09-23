@@ -2,13 +2,12 @@
 layout: default
 title: Home
 ---
+{% from "entries.njk" import entryList %}
 
-<img src="/images/lymphocytes_2x.png" alt="xkcd 2749: Lymphocytes" width="45%"/>
+<h1>Writing</h1>
+{{ entryList(collections.writing) }}
 
-## Posts
-
-<ul>
-{% for post in collections.post | reverse %}
-  <li><a href="{{ post.url }}">{{ post.data.title or post.fileSlug }}</a></li>
-{% endfor %}
-</ul>
+{% if collections.ongoing.length %}
+<h2>Ongoing</h2>
+{{ entryList(collections.ongoing) }}
+{% endif %}

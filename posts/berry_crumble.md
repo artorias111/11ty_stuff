@@ -1,8 +1,11 @@
 ---
+date: 2026-02-05
 title: My new go-to snack
+permalink: /notes/food/berry_crumble/
+tags: ["food"]
 ---
 
-# My new go-to snack
+# Berry crumble
 I recently inherited a lot of strawberries (just one box, actually, but it felt like a lot before I found this recipe, now it's too little) from a friend. They were going to spoil soon, and were mushy, so I headed online to find a good recipe to use up my strawberries. Thanks to Fit Mitten Kitchen's [recipe](https://www.fitmittenkitchen.com/gluten-free-strawberry-crisp/), not only did I finish up the strawberries, I used up all my frozen berries in the Freezer too, and now I'm on my way to get more berries from the berry shop. 
 
 Here's how I made them:
@@ -32,9 +35,8 @@ Steps:
 5. Add the mixture on top, and press it down with a spatula if needed. 
 6. Bake for 50 Minutes. Check halfway to make sure nothing's going wrong or burning. 
 7. Let cool for 10 mins (if you can wait 10 mins)
-8. Top with zero sugar Vanilla Greek yogurt (my personal preference), or ice cream, and enjoy. 
+8. Top with zero sugar Vanilla Greek yogurt (my personal preference), or ice cream, and dig in. 
 
 
 
 <img src="/images/berry_crumble.jpg" alt="image" width="50%"/>
-

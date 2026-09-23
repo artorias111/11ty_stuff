@@ -1,8 +1,11 @@
 ---
-title: Another go-to snack
+date: 2026-02-23
+title: Malai broccoli
+permalink: /notes/food/malai_broccoli/
+tags: ["food"]
 ---
 
-# Another go-to snack
+# Malai broccoli
 I purchased a big bag of broccoli, and then I didn't know what to do with it. So here's a marinated Indian style broccoli recipe inspired by [Shweta](https://www.youtube.com/@shwetasgenielife/) (I couldn't find a website so I added her Youtube channel). The prep time is almost instantaneous, and it's super tasty. And the best part, you get quite a bit of broccoli into your system. 
 
 Here's how I made them:
