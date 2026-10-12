@@ -3,14 +3,11 @@ date: 2025-05-24
 title: Simple Fastq parser
 tags: ["genomics", "programming"]
 ---
-
 # Your Fastq parser probably breaks on high quality reads
-
-<!-- To add an image: ./add-image.sh path/to/photo.jpg -->
 
 ## The issue
 I'm writing a small Rust tool to scan G4 quadruplex motifs in sequencing reads. It takes a FASTA or FASTQ (affectionately called FASTX by the community), either gzipped or not, and writes a BED. An MVP needed for my use case worked, until I ran into a weird edge case most FASTA/FASTQ parsers will probably meet sometime sooner or later. My BED file looked good most of the time, but for some reason, it silently returned nonsense for certain files. I (wrongly) diagnosed it as an issue with FASTQ files when `.gz` compressed. I could've just used a pre-written Rust FASTX parser library, but I thought it's a good exercise to get going with Rust, so I stuck with it. 
-I just thought I'll avoid using it directly on any `*.fastq.gz` file and I should be good. I was running short on time and I just wanted some answers, not a edge-case tested flagship flagship G4 finding product. A few weeks later after my deadlines passed I decided to sit back on it. Turns out the trigger was actually high-quality reads, so in a weird way "better" data broke my code. 
+I just thought I'll avoid using it directly on any `*.fastq.gz` file and I should be good. I was running short on time and I just wanted some answers, not an edge-case-tested flagship G4 finding product. A few weeks later after my deadlines passed I decided to sit back on it. Turns out the trigger was actually high-quality reads, so in a weird way "better" data broke my code. 
 
 ## A quick description of the bug
 FASTA file headers start with a `>`. FASTQ headers start with `@`. In Phred+33, used by Illumina, and my use case, PacBio, quality scores are $ASCII - 33$. So:
@@ -36,7 +33,7 @@ One misread line would be a small bug, *one* record with a silly name. But flipp
 
 Coordinates for the BED were then offset into a string made of header text and quality characters. Continuing downstream, the id parser did `split_whitespace().next()?` on that garbage. Which meant the iterator could return `None`, which to the caller is indistinguishable from "end of file", and truncating the rest of the file. Pretty severe consequences for a simple bug. So, sometimes, the truncation looked like a successful run, but my (potential) G-quadruplex motifs weren't a complete list. 
 
-Here's an example garbage output line in the BEd file. 
+Here's an example garbage output line in the BED file. 
 ```BED
 read1                    0   18   G4   18   +
 IIIIIIIIIIIIIIIIIIIII    6   24   G4   18   -
@@ -64,4 +61,4 @@ fn fastq_quality_line_starting_with_gt_is_not_a_header() {
 I also built a fixture that walks the full printable Phred+33 range (` !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGH `) so `>` and `@` aren't "special" when going through the quality score line of a FASTQ. They're just two bytes in the middle of a legal quality string line. 
 
 ## Take-away 
-the strict four-line header is still the right architecture. And my lesson here is that if a well-tested third party library exists, check out their documentation to make sure you've covered all the edge cases. Something that looks simple and is a forethought when writing code and can screw up production code. It's nice to write my own code and lower my dependence on external libraries, but sometimes, especially if its used everywhere, maybe it's not the worst option. I would not create my own `flate2` alternative as a `gz` reader from scratch for this project, for instance. Not enough ROI for the time investment.
+The strict four-line header is still the right architecture. And my lesson here is that if a well-tested third party library exists, check out their documentation to make sure you've covered all the edge cases. Something that looks simple and is a forethought when writing code and can screw up production code. It's nice to write my own code and lower my dependence on external libraries, but sometimes, especially if it's used everywhere, maybe it's not the worst option. I would not create my own `flate2` alternative as a `gz` reader from scratch for this project, for instance. Not enough ROI for the time investment.

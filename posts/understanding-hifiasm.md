@@ -29,9 +29,9 @@ starting at $i$:
 
 $$M(i) = \arg\min_{j \in [i,\, i+w)} h\big(s[j:j+k]\big)$$
 
-Defaults are `-k 51 -w 51`. $k=51$ is enormous by assembler standards — miniasm uses 15–19 — and it is a direct dividend of the accuracy above. A shared 51-mer is essentially never a coincidence, so you can seed on exact matches and skip the sensitivity machinery a noisy-read assembler needs. Minimizers select about $2/(w+1)$ of positions, so the index stays small.
+Defaults are `-k 51 -w 51`. $k=51$ is enormous by assembler standards (miniasm uses $15–19$, for context) and it only works because HiFi reads are so accurate. A shared 51-mer is essentially never a coincidence, so you can seed on exact matches and skip the sensitivity machinery a noisy-read assembler needs. Minimizers select about $2/(w+1)$ of positions, so the index stays small.
 
-Repetitive seeds are the thing that will kill you: a k-mer present in $t$ copies seeds $O(t^2)$ candidate pairs. So $k$-mers occurring more than `-D` (5.0) times the estimated coverage are dropped, singletons below `--min-hist-cnt` (5) are treated as errors, and `-f` (37) sets the bits of the Bloom filter used to avoid storing the singletons in the first place.
+Repetitive seeds are the main cost: a $k$-mer present in $t$ copies seeds $O(t^2)$ candidate pairs. So $k$-mers occurring more than `-D` (5.0) times the estimated coverage are dropped, singletons below `--min-hist-cnt` (5) are treated as errors, and `-f` (37) sets the bits of the Bloom filter used to avoid storing the singletons in the first place.
 
 Candidate pairs then get **base-level** alignment, which is unusual. Most assemblers align sketches (sketching is also worthy of its own post) of reads to each other, but hifiasm needs real mismatch positions later, so it cannot throw the bases away. It affords this with [Myers' bit-vector algorithm](https://docs.rs/bio/latest/bio/pattern_matching/myers/index.html), which packs the dynamic programming column into machine words and computes an edit-distance column in $O(n/w_{\text{word}})$ word operations instead of $O(n)$. So a full $n \times m$ alignment costs $O(nm/w_{\text{word}})$.
 Reads are cut into small non-overlapping windows, the vectorization (with SIMD operations) can run several windows at once, and the regions straddling window boundaries get realigned afterwards, because an alignment truncated at a window edge is unreliable.
@@ -52,7 +52,7 @@ and *inconsistent* the moment it differs at one. If $\mathcal{I}(r_t, r_i) = \em
 
 $$\hat{r}_t[p] = \arg\max_{b} \big|\{\, r_i \in \mathcal{C}(r_t) : r_i[p] = b \,\}\big|$$
 
-Inconsistent reads are not discarded, instead, they are *recorded*, because "these two reads are from different haplotypes" is the observation the primary assembly and duplicate purging both consume later.
+Inconsistent reads are not discarded. They are *recorded*, because "these two reads are from different haplotypes" is used later, to build the primary assembly and for purging duplicates.
 
 The same test does a second job. Two copies of a repeat differ at fixed positions across many reads, which is indistinguishable from a het site, so repeat copies get separated by the same rule that separates haplotypes.
 
@@ -66,13 +66,13 @@ At $\bar{c} = 30$ and $\epsilon = 0.003$ this is about $1.2 \times 10^{-5}$ per 
 
 $$1 - (1-\epsilon)^{20} \approx 6\%$$
 
-of reads on the first pass. That is the chicken-and-egg problem: identifying het sites needs corrected reads, and correcting reads needs the het sites. Hence `-r 3`. Round one corrects what it can, round two re-runs overlaps on partially-corrected reads so fewer targets carry errors at het positions, round three cleans up. Three rounds is not a magic number, it is enough iterations for that 6% to decay.
+of reads on the first pass. That is the chicken-and-egg problem: identifying het sites needs corrected reads, and correcting reads needs the het sites. Hence `-r 3`. Round one corrects what it can, round two re-runs overlaps on partially-corrected reads so fewer targets carry errors at het positions, round three cleans up. Three rounds isn't special, it's just enough iterations for that 6% to decay.
 
-Notice the number falls out of heterozygosity, not just error rate. A wild outbred organism with several times human heterozygosity has proportionally more het sites per read, which both improves the phasing signal and worsens this failure mode at the same time.
+So the failure rate depends on the heterozygosity, not just error rate. A wild outbred organism with several times human heterozygosity has proportionally more het sites per read, which both improves the phasing signal and worsens this failure mode at the same time.
 
-## The graph, where bubbles are the point
+## Building the graph
 
-Overlaps are recomputed on the corrected reads and a string graph is built: vertices are oriented reads ($r^+$ and $r^-$, so $|V| = 2n$), and **only consistent overlaps become edges**. Contained reads carry no unique sequence and drop out, as in Myers' original formulation. [Transitive reduction](https://en.wikipedia.org/wiki/Transitive_reduction) then removes any edge $(u,w)$ that is already implied by a path $u \to v \to w$, which strips the graph down to the edges that carry information.
+Overlaps are recomputed on the corrected reads and a string graph is built: vertices are oriented reads ($r^+$ and $r^-$, so $|V| = 2n$), and **only consistent overlaps become edges**. Contained reads carry no unique sequence and drop out, as in Myers' original formulation. [Transitive reduction](https://en.wikipedia.org/wiki/Transitive_reduction) then removes any edge $(u,w)$ that is already implied by a path $u \to v \to w$, which 'redces' the graph down to the edges that carry information. No redundancy. 
 
 What is left at a heterozygous locus is a [bubble](https://user-images.githubusercontent.com/9053403/110452767-7225e000-8100-11eb-926e-e0d67f144a8b.png). Reads on the two sides are mutually inconsistent, so no edge crosses between them. Reads at $s$ and $t$ overlap both sides because their overlaps are too short to reach a het allele. Every other assembler treats this bubble as a defect and pops it, keeping one allele and discarding the other. Hifiasm keeps it. Also, since I skipped them: Trio binning (you also have the parents' HiFi data) and Hi-C (proximity ligation data), when you have them, are just ways of deciding which side of each bubble belongs with which, so improved *phasing*. 
 
@@ -81,7 +81,7 @@ destroy substructures that carry local phasing.
 
 ## What I took away
 
-Being in a lab that seems to runs hifiasm every other day, the thing worth internalising is that hifiasm does not phase after assembling. Phasing and error correction are *the same operation*, the decision of which reads may correct a target is already a haplotype assignment, and by the time a graph exists the haplotypes are separate objects in it. Everything downstream only chooses which side to print. 
+Being in a lab that seems to runs `hifiasm` every other day, the main takeaway is that hifiasm does not phase after assembling. Phasing and error correction are *the same operation*, the decision of which reads may correct a target is already a haplotype assignment, and by the time a graph exists the haplotypes are separate objects in it. Everything downstream only chooses which side to print. 
 
 ---
 
