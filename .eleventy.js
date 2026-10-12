@@ -48,6 +48,16 @@ module.exports = function(eleventyConfig) {
       }
     });
   });
+  eleventyConfig.amendLibrary("md", (md) => {
+    const image = md.renderer.rules.image;
+    md.renderer.rules.image = (tokens, idx, options, env, self) => {
+      const src = tokens[idx].attrGet("src");
+      if (!/^(\/|https?:)/.test(src)) {
+        tokens[idx].attrSet("src", "/images/" + src.split("/").pop());
+      }
+      return image(tokens, idx, options, env, self);
+    };
+  });
   eleventyConfig.addPlugin(syntaxHighlight);
   eleventyConfig.addFilter("isoDate", function (d) {
     return new Date(d).toISOString().slice(0, 10);

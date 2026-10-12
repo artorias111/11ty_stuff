@@ -7,6 +7,8 @@ title: About
 
 {{ site.intro }}
 
+{% include "contact.njk" %}
+
 <img src="/images/shriram.webp" alt="An instant photo of Shriram on a red table" width="300" height="400">
 
 ## About the site

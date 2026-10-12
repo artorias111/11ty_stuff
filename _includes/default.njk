@@ -4,7 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
-  <title>{% if title and title != "Home" %}{{ title | plain }} · TTAGGC{% else %}TTAGGC{% endif %}</title>
+  <title>{% if title and title != "Home" %}{{ title | plain }} · Shriram Bhat{% else %}Shriram Bhat · TTAGGC{% endif %}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  <meta property="og:title" content="{% if title and title != "Home" %}{{ title | plain }}{% else %}Shriram Bhat · TTAGGC{% endif %}">
+  <meta property="og:description" content="{{ description or site.description }}">
   <script>
     (function () {
       var d = document.documentElement;
