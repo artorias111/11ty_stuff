@@ -8,6 +8,23 @@ updated: 2026-08-25
 
 # Guitar lessons
 
+## 2026-10-11
+- Notes
+	- I was told to learn notes, and to pick up a bit of sheet music learning on the way
+- For my quick reference
+- ![348](images/Pasted%20image%2020261011092737.png)
+
+- First string E, F and G notes
+- Practicing these notes for the next couple of days
+- ![590](images/Pasted%20image%2020261011092830.png)
+
+## 2026-10-10
+- A couple of finger exercises for coordination. Feels like I'm moving backwards. 
+![378](images/Pasted%20image%2020261010114749.png "Wise words")
+
+- Chords C and G7 for a refresher
+- 
+
 ## 2026-08-25
 - Scales from the free [Learn and Master Guitar by Steve Krenz book](https://www.learnandmaster.com/main/pages/resources/)
 
