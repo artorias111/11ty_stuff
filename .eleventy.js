@@ -2,7 +2,7 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const katex = require("@vscode/markdown-it-katex").default;
 
 module.exports = function(eleventyConfig) {
-  const SERVING = process.env.ELEVENTY_RUN_MODE !== "build";
+  const SERVING = process.argv.includes("--serve");
 
   eleventyConfig.addGlobalData("eleventyComputed.permalink", () => (data) =>
     data.draft && !SERVING ? false : data.permalink);
