@@ -3,7 +3,6 @@ date: 2026-05-29
 title: Understanding hifiasm
 tags: ["genomics"]
 ---
-
 # Understanding hifiasm
 
 I run hifiasm often enough that I got uncomfortable not knowing what it does between reading my FASTQ and writing my GFA. This blog post is me working through the core of the HiFi pipeline: the part that takes reads and produces a graph. (I've left out trio binning, Hi-C phasing and `purge_haplotigs`, which deserve their own post). 

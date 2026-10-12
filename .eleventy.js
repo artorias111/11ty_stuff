@@ -55,6 +55,12 @@ module.exports = function(eleventyConfig) {
       if (!/^(\/|https?:)/.test(src)) {
         tokens[idx].attrSet("src", "/images/" + src.split("/").pop());
       }
+      const size = tokens[idx].content.match(/\|(\d+)$/);
+      if (size) {
+        tokens[idx].attrSet("width", size[1]);
+        const last = tokens[idx].children[tokens[idx].children.length - 1];
+        last.content = last.content.replace(/\|\d+$/, "");
+      }
       return image(tokens, idx, options, env, self);
     };
   });

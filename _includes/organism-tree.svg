@@ -1,0 +1,35 @@
+<svg class="sketch" viewBox="0 0 640 320" role="img" aria-label="Tree of the five species. Human and zebrafish group together as vertebrates, fruit fly and nematode group together, these two groups join as animals, and budding yeast is the outgroup." style="width:100%;max-width:640px;display:block;margin:1.5rem auto;font-family:Gaegu,cursive">
+  <defs>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3.5"/></filter>
+  </defs>
+  <g filter="url(#rough)" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+    <path d="M32 214 L92 215"/>
+    <path d="M91 136 L92 290"/>
+    <path d="M90 137 L212 135"/>
+    <path d="M90 289 L404 290"/>
+    <path d="M211 66 L212 196"/>
+    <path d="M210 67 L332 66"/>
+    <path d="M211 195 L332 196"/>
+    <path d="M331 40 L332 96"/>
+    <path d="M330 41 L404 40"/>
+    <path d="M331 95 L404 96"/>
+    <path d="M331 168 L332 224"/>
+    <path d="M330 169 L404 168"/>
+    <path d="M331 223 L404 224"/>
+    <circle cx="331" cy="67" r="3.5" fill="currentColor"/>
+    <circle cx="331" cy="196" r="3.5" fill="currentColor"/>
+    <circle cx="211" cy="136" r="3.5" fill="currentColor"/>
+    <circle cx="91" cy="214" r="3.5" fill="currentColor"/>
+  </g>
+  <g fill="currentColor" font-size="21">
+    <text x="416" y="46" style="fill:var(--accent)">Human <tspan font-size="16" font-style="italic">H. sapiens</tspan></text>
+    <text x="416" y="102">Zebrafish <tspan font-size="16" font-style="italic">D. rerio</tspan></text>
+    <text x="416" y="174">Fruit fly <tspan font-size="16" font-style="italic">D. melanogaster</tspan></text>
+    <text x="416" y="230">Nematode <tspan font-size="16" font-style="italic">C. elegans</tspan></text>
+    <text x="416" y="296">Yeast <tspan font-size="16" font-style="italic">S. cerevisiae</tspan></text>
+  </g>
+  <g fill="currentColor" font-size="16" opacity=".75">
+    <text x="236" y="60">vertebrates</text>
+    <text x="118" y="128">animals</text>
+  </g>
+</svg>

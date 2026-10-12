@@ -100,6 +100,7 @@ a {
   border-bottom: 1px solid var(--line);
 }
 a:hover { border-bottom-color: var(--accent); }
+a:has(> img) { border-bottom: 0; }
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--heading);
@@ -383,4 +384,10 @@ pre code {
   .masthead .logo img { width: 190px; }
 
   .masthead nav::before { display: none; }
+}
+
+@font-face {
+  font-family: "Gaegu";
+  src: url("/css/fonts/gaegu-latin.woff2") format("woff2");
+  font-display: swap;
 }

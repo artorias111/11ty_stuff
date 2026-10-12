@@ -18,3 +18,5 @@ This is a personal list where I post anything and everything I feel like writing
 TTAGGC is the most common [telomere repeat](https://telomerase.us/) found in the nematode *Caenorhabditis elegans*.  Telomeres are the ends of the chromosomes.
 
 <img src="/images/ver_preview_e618.png" alt="image" width="10%"/>
+
+[![crocheting_sheep|203](images/crocheting_sheep.jpg)](https://www.klosekniturbana.com/)

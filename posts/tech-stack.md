@@ -8,22 +8,13 @@ living: true
 
 # Tech stack
 
-<!-- A living page: edit it in place and bump `updated` above. It deliberately
-     does NOT join the dated stream, so there's only ever one current version. -->
-An opinionated list of things I like and dislike. 
+An opinionated list of things I like and dislike in my daily work. 
 ## Notes
-Obsidian. 
+Obsidian. I was in on it way back before the "[second brain](https://youtu.be/6NukGtwJb7Y?si=ZkGXeENL2VFsrJ5_)" gigachads got into it. Thanks to them, I don't need to be afraid of Obsidian going bankrupt and closing down. It's big now. 
 
-## Languages
-
-<!-- what you actually reach for, and for what -->
-
-## Analysis
-
-<!-- aligners, callers, workflow managers, R/Python stack -->
-
+Please use Firefox/[Zen browser](https://zen-browser.app/) if possible. I think Google Chrome and its browser engine has enough market share already. 
 ## Editor, terminal and shell
-I switch between [Neovim](https://neovim.io/), [Zed](https://zed.dev/) and [VSCodium](https://vscodium.com/). I wish I could only use Neovim full-time. But somehow LSP on neovim has never been smooth. I tried [Helix](https://helix-editor.com/) but couldn't get used to the new keybindings. Also, the lack of plugins bothered me. 
+I switch between [Neovim](https://neovim.io/), [Zed](https://zed.dev/) and [VSCodium](https://vscodium.com/). I wish I could only use Neovim full-time.  But somehow LSP on neovim has never been smooth. I tried [Helix](https://helix-editor.com/) but couldn't get used to the new keybindings. Also, the lack of plugins bothered me. 
 
 I switch between [Ghostty](https://ghostty.org/) and [WezTerm](https://wezterm.org/) on MacOS. Once I started using Claude code, I switched to [cmux](https://cmux.com/) for a bit. And then, I found my home in [Herdr](https://herdr.dev/). So I've now stuck to Ghostty + Herdr. 
 
@@ -32,9 +23,3 @@ In the remote cluster (no [Slurm](https://slurm.schedmd.com/overview.html)), I u
 I've taken bait to the rising list of rust-powered command line tools. I am a big fan of [starship](https://starship.rs/), [dust](https://github.com/bootandy/dust), [zoxide](https://crates.io/crates/zoxide), and [eza](https://eza.rocks/). They're all nice to have. 
 
 Someone I know once said [Zsh](https://www.zsh.org/) is like a Tesla (I don't think he meant that in a good way), when I asked for it to be installed alongside bash in the remote cluster. 
-
-## Hardware
-I use a Mac. 
-
-Back in college I had an Asus ZenBook 13 It packed an Nvidia GeForce MX150, a rare chip even back in the day, becuase it barely functioned as a gaming GPU. I was forced to switch to an AMD Lenovo IdeaPad Gaming 3 (with an Nvidia GeForce 1650Ti) once the Asus fan couldn't handle Dark Souls 3 and broke down. Today, the Lenovo sits unused, with Ubuntu, in my lab space. It's still great for 2026. However, all my needs (as of today) are met with the MacBook. 
-If you know of ways to use multiple PCs/laptops/computers, please reach out, or let me reach out to you. I don't like seeing a killer Linux box being unused every day. **If you're in need of a computer, I'm also happy to donate it if there's a way to ship it to you**.
