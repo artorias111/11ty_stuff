@@ -8,6 +8,11 @@ updated: 2026-08-25
 
 # Guitar lessons
 
+## 2026-10-12
+- B, C, D notes
+- Now I can play E,F,G,B,C,D
+	- rest of the week just practice these notes. 1st and 2nd string notes. 
+
 ## 2026-10-11
 - Notes
 	- I was told to learn notes, and to pick up a bit of sheet music learning on the way
