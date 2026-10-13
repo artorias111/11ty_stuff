@@ -15,6 +15,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("images");
 
   eleventyConfig.addPassthroughCopy("css");
+  eleventyConfig.addPassthroughCopy("cv.pdf");
   eleventyConfig.addPassthroughCopy({
     "node_modules/katex/dist/katex.min.css": "css/katex.min.css",
     "node_modules/katex/dist/fonts/*.woff2": "css/fonts",
