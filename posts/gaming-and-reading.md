@@ -14,6 +14,7 @@ Currently:
 - [Hades 2](https://en.wikipedia.org/wiki/Hades_II)
 
 2026:
+- Junji Ito - [Uzumaki](https://en.wikipedia.org/wiki/Uzumaki)
 - [Split fiction](https://en.wikipedia.org/wiki/Split_Fiction)
 - Liu Cixin - [The Three-body problem](https://en.wikipedia.org/wiki/The_Three-Body_Problem_(novel))
 - Min Jin Lee - [Pachinko](https://en.wikipedia.org/wiki/Pachinko_(novel))
